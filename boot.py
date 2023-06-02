@@ -8,7 +8,7 @@ from time import sleep
 #wdt = WDT(timeout=4000)
 print("DRONE START IN 3, ", end='')
 sleep(1)
-print("2, " end='')
+print("2, ", end='')
 sleep(1)
 print("1")
 sleep(1)
