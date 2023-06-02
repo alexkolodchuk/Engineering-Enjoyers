@@ -62,9 +62,14 @@ R_m_pin.irq(trigger=Pin.IRQ_FALLING |Pin.IRQ_RISING , handler=R_W_int) #t    rig
 L_m_pin.irq(trigger=Pin.IRQ_FALLING |Pin.IRQ_RISING , handler=L_W_int)
 
 async def synch(int_ms):
+    global W_count
+    k= 0
     while 1:
+        k+=1
+        if k%2000==0:
+            W_count=0
         await asio.sleep_ms(int_ms)
-        Sp1=int(Sp/(abs(W_count)+1))
+        Sp1=Sp-int(Sp/(abs(W_count)+1))
         #print(direct, W_count)
         if direct==0:
             if W_count>0:
@@ -244,7 +249,7 @@ async def resive(e,int_ms):
 loop = asio.get_event_loop()
 
 #create looped tasks
-loop.create_task(synch(20))
+loop.create_task(synch(2))
 loop.create_task(W_sp(100))
 loop.create_task(LED_cont(100))
 loop.create_task(send(e,100))
